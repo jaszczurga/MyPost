@@ -35,6 +35,16 @@ CREATE TABLE IF NOT EXISTS likes (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS user_friends (
+   friendship_id INT AUTO_INCREMENT PRIMARY KEY,
+   user_id INT,
+   friend_id INT,
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+   FOREIGN KEY (friend_id) REFERENCES users(user_id) ON DELETE CASCADE,
+   CONSTRAINT unique_friendship UNIQUE (user_id, friend_id)
+);
+
 CREATE TABLE IF NOT EXISTS conversations (
     conversation_id INT AUTO_INCREMENT PRIMARY KEY,
     conversation_name VARCHAR(100),
@@ -60,12 +70,4 @@ CREATE TABLE IF NOT EXISTS messages (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS user_friends (
-    friendship_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    friend_id INT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (friend_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    CONSTRAINT unique_friendship UNIQUE (user_id, friend_id)
-);
+
