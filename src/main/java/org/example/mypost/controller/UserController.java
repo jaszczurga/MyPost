@@ -43,4 +43,20 @@ public ResponseEntity<?> getAllUsers(@RequestParam (required = false) Boolean fr
     }
 }
 
+//get user by id method
+    @GetMapping("/userById")
+    public ResponseEntity<?> getUserById(@RequestParam int id, @RequestParam (required = false) Boolean friends){
+
+       if(Boolean.TRUE.equals(friends)){
+              User user = userService.getUserById(id);
+              return ResponseEntity.ok(user);
+        }else{
+                User user = userService.getUserById(id);
+                UserWithoutFriendsDto userWithoutFriendsDto = new UserWithoutFriendsDto(user.getUserId(), user.getUsername(), user.getEmail(),user.getCreatedAt());
+                return ResponseEntity.ok(userWithoutFriendsDto);
+        }
+    }
+
+
+
 }
