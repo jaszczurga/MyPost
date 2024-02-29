@@ -1,17 +1,15 @@
-package org.example.mypost.Dto;
+package org.example.mypost.Dto.UserResponse;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.mypost.entity.User;
 
 import java.util.List;
 
-@Data
 @AllArgsConstructor
+@Data
 @NoArgsConstructor
-@Builder
-public class UserResponeDto{
-    List<User> userList;
+public class UserListDto{
+    List<?> userList;
 }
