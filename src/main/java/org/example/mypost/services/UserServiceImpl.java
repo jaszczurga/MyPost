@@ -35,4 +35,15 @@ public class UserServiceImpl implements UserService{
         return user;
     }
 
+    @Override
+    public User getUserByEmail(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(()-> new UserNotFoundException( "User not found with email: " + email));
+        return user;
+    }
+
+    @Override
+    public void addUser(User user) {
+        userRepository.save(user);
+    }
+
 }

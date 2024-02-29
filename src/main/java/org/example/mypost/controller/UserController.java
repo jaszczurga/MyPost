@@ -9,10 +9,7 @@ import org.example.mypost.entity.User;
 import org.example.mypost.entity.UserFriends;
 import org.example.mypost.services.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,5 +49,23 @@ public ResponseEntity<?> getUserByName(@RequestParam String name, @RequestParam(
     UserDto userDto = userUtils.getUserDto( friends , posts , user );
     return ResponseEntity.ok( userDto );
 }
+
+@GetMapping("/userByEmail")
+public ResponseEntity<?> getUserByEmail(@RequestParam String email, @RequestParam(required = false) Boolean friends, @RequestParam(required = false) Boolean posts) {
+    User user = userService.getUserByEmail( email );
+    UserDto userDto = userUtils.getUserDto( friends , posts , user );
+    return ResponseEntity.ok( userDto );
+}
+
+
+//@GetMapping("/userByFriend")
+//@GetMapping("/userByComment")
+//@GetMapping("/userByPost")
+//public ResponseEntity<?> getUserByPost(@RequestParam int postId, @RequestParam(required = false) Boolean friends, @RequestParam(required = false) Boolean posts) {
+//    Posts post = userService.getPostById( postId );
+//    User user = post.getUser();
+//    UserDto userDto = userUtils.getUserDto( friends , posts , user );
+//    return ResponseEntity.ok( userDto );
+//}
 
 }
