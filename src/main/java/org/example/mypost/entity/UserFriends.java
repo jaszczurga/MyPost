@@ -23,12 +23,13 @@ public class UserFriends {
     @Column(name = "friendship_id")
     private int friendshipId;
 
-    @JsonIgnoreProperties("userFriends")
+
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
-    @JsonIgnoreProperties("userFriends")
+    @JsonIgnoreProperties({"userFriends","posts"})
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "friend_id", referencedColumnName = "user_id")
     private User friend;

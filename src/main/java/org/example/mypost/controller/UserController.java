@@ -1,9 +1,11 @@
 package org.example.mypost.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.mypost.Dto.UserResponse.UserWithoutFriendsDto;
+import org.example.mypost.Dto.UserResponse.UserOptions.UserDto;
 import org.example.mypost.Dto.UserResponse.UserListDto;
+import org.example.mypost.entity.Posts;
 import org.example.mypost.entity.User;
+import org.example.mypost.entity.UserFriends;
 import org.example.mypost.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,41 +23,43 @@ public class UserController{
 
     final UserService userService;
 
-    //get all users method
-   @GetMapping("/allUsers")
-public ResponseEntity<?> getAllUsers(@RequestParam (required = false) Boolean friends) {
-    List<User> userList;
-    if (Boolean.TRUE.equals(friends)) {
-        userList = userService.getAllUsers();
-        UserListDto response = new UserListDto(userList);
-        return ResponseEntity.ok(response);
+@GetMapping("/allUsers")
+public ResponseEntity<?> getAllUsers(@RequestParam(required = false) Boolean friends, @RequestParam(required = false) Boolean posts) {
+    List<User> userList = userService.getAllUsers();
+    UserListDto response = new UserListDto();
+    List<UserDto> userDtoList = new ArrayList<>();
 
-    } else {
-        userList = userService.getAllUsers();
-        UserListDto response = new UserListDto();
-        List<UserWithoutFriendsDto> userWithoutFriendsDtoList = new ArrayList<>();
-        for (User user : userList) {
-            UserWithoutFriendsDto userWithoutFriendsDto = new UserWithoutFriendsDto(user.getUserId(), user.getUsername(), user.getEmail(),user.getCreatedAt());
-            userWithoutFriendsDtoList.add( userWithoutFriendsDto );
-        }
-        response.setUserList( userWithoutFriendsDtoList );
-        return ResponseEntity.ok(response);
+    for (User user : userList) {
+        List<UserFriends> userFriends = Boolean.TRUE.equals(friends) ? user.getUserFriends() : null;
+        List<Posts> userPosts = Boolean.TRUE.equals(posts) ? user.getPosts() : null;
+        UserDto userDto = UserDto.builder()
+                .id(user.getUserId())
+                .name(user.getUsername())
+                .email(user.getEmail())
+                .createdAt(user.getCreatedAt())
+                .friends(userFriends)
+                .posts(userPosts)
+                .build();
+        userDtoList.add(userDto);
     }
+    response.setUserList(userDtoList);
+    return ResponseEntity.ok(response);
 }
-
-    //get user by id method
-    @GetMapping("/userById")
-    public ResponseEntity<?> getUserById(@RequestParam int id, @RequestParam (required = false) Boolean friends){
-
-       if(Boolean.TRUE.equals(friends)){
-              User user = userService.getUserById(id);
-              return ResponseEntity.ok(user);
-        }else{
-                User user = userService.getUserById(id);
-                UserWithoutFriendsDto userWithoutFriendsDto = new UserWithoutFriendsDto(user.getUserId(), user.getUsername(), user.getEmail(),user.getCreatedAt());
-                return ResponseEntity.ok(userWithoutFriendsDto);
-        }
-    }
+@GetMapping("/userById")
+public ResponseEntity<?> getUserById(@RequestParam int id, @RequestParam(required = false) Boolean friends, @RequestParam(required = false) Boolean posts) {
+    User user = userService.getUserById(id);
+    List<UserFriends> userFriends = Boolean.TRUE.equals(friends) ? user.getUserFriends() : null;
+    List<Posts> userPosts = Boolean.TRUE.equals(posts) ? user.getPosts() : null;
+    UserDto userDto = UserDto.builder()
+            .id(user.getUserId())
+            .name(user.getUsername())
+            .email(user.getEmail())
+            .createdAt(user.getCreatedAt())
+            .friends(userFriends)
+            .posts(userPosts)
+            .build();
+    return ResponseEntity.ok(userDto);
+}
 
 
 
