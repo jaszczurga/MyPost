@@ -45,4 +45,10 @@ public class Posts {
     public int getLikesCount(){
         return likes.size();
     }
+
+    //relation to Comments
+    @JsonBackReference(value = "comments")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<Comments> comments;
+
 }

@@ -2,6 +2,7 @@ package org.example.mypost.Dto.UserResponse.UserOptions;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,5 +28,4 @@ public class UserDto{
 
     @JsonInclude (JsonInclude.Include.NON_NULL)
     private List<Posts> posts;
-
 }
