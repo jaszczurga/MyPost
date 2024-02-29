@@ -29,4 +29,10 @@ public class UserServiceImpl implements UserService{
        return user;
     }
 
+    @Override
+    public User getUserByName(String name) {
+        User user = userRepository.findByUsername(name).orElseThrow(()-> new UserNotFoundException( "User not found with name: " + name));
+        return user;
+    }
+
 }

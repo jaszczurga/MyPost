@@ -3,6 +3,7 @@ package org.example.mypost.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.mypost.Dto.UserResponse.UserOptions.UserDto;
 import org.example.mypost.Dto.UserResponse.UserListDto;
+import org.example.mypost.controller.utils.UserUtils;
 import org.example.mypost.entity.Posts;
 import org.example.mypost.entity.User;
 import org.example.mypost.entity.UserFriends;
@@ -22,6 +23,7 @@ import java.util.List;
 public class UserController{
 
     final UserService userService;
+    final UserUtils userUtils;
 
 @GetMapping("/allUsers")
 public ResponseEntity<?> getAllUsers(@RequestParam(required = false) Boolean friends, @RequestParam(required = false) Boolean posts) {
@@ -30,37 +32,25 @@ public ResponseEntity<?> getAllUsers(@RequestParam(required = false) Boolean fri
     List<UserDto> userDtoList = new ArrayList<>();
 
     for (User user : userList) {
-        List<UserFriends> userFriends = Boolean.TRUE.equals(friends) ? user.getUserFriends() : null;
-        List<Posts> userPosts = Boolean.TRUE.equals(posts) ? user.getPosts() : null;
-        UserDto userDto = UserDto.builder()
-                .id(user.getUserId())
-                .name(user.getUsername())
-                .email(user.getEmail())
-                .createdAt(user.getCreatedAt())
-                .friends(userFriends)
-                .posts(userPosts)
-                .build();
+        UserDto userDto = userUtils.getUserDto( friends , posts , user );
         userDtoList.add(userDto);
     }
+
     response.setUserList(userDtoList);
     return ResponseEntity.ok(response);
 }
 @GetMapping("/userById")
 public ResponseEntity<?> getUserById(@RequestParam int id, @RequestParam(required = false) Boolean friends, @RequestParam(required = false) Boolean posts) {
-    User user = userService.getUserById(id);
-    List<UserFriends> userFriends = Boolean.TRUE.equals(friends) ? user.getUserFriends() : null;
-    List<Posts> userPosts = Boolean.TRUE.equals(posts) ? user.getPosts() : null;
-    UserDto userDto = UserDto.builder()
-            .id(user.getUserId())
-            .name(user.getUsername())
-            .email(user.getEmail())
-            .createdAt(user.getCreatedAt())
-            .friends(userFriends)
-            .posts(userPosts)
-            .build();
-    return ResponseEntity.ok(userDto);
+    User user = userService.getUserById( id );
+    UserDto userDto = userUtils.getUserDto( friends , posts , user );
+    return ResponseEntity.ok( userDto );
 }
 
-
+@GetMapping("/userByName")
+public ResponseEntity<?> getUserByName(@RequestParam String name, @RequestParam(required = false) Boolean friends, @RequestParam(required = false) Boolean posts) {
+    User user = userService.getUserByName( name );
+    UserDto userDto = userUtils.getUserDto( friends , posts , user );
+    return ResponseEntity.ok( userDto );
+}
 
 }
