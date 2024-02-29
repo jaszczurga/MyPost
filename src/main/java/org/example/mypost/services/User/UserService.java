@@ -1,4 +1,4 @@
-package org.example.mypost.services;
+package org.example.mypost.services.User;
 
 import org.example.mypost.entity.User;
 

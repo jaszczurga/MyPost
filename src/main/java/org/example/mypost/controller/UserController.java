@@ -5,7 +5,7 @@ import org.example.mypost.Dto.UserResponse.UserOptions.UserDto;
 import org.example.mypost.Dto.UserResponse.UserListDto;
 import org.example.mypost.controller.utils.UserUtils;
 import org.example.mypost.entity.User;
-import org.example.mypost.services.UserService;
+import org.example.mypost.services.User.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
