@@ -6,6 +6,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.mypost.entity.Comments;
+import org.example.mypost.entity.Likes;
+import org.example.mypost.entity.Posts;
+import org.example.mypost.entity.UserFriends;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -21,7 +25,7 @@ public class User {
     @Column(name = "user_id")
     private int userId;
 
-    @Column(name = "username", nullable = false, length = 50)
+    @Column(name = "firstname", nullable = false, length = 50)
     private String username;
 
     @Column(name = "email", nullable = false, length = 100)
