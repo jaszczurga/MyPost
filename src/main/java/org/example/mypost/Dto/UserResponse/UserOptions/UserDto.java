@@ -19,7 +19,8 @@ import java.util.List;
 @Builder
 public class UserDto{
     private int id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String email;
     private Timestamp createdAt;
 

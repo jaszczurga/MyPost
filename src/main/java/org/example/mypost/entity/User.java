@@ -1,9 +1,7 @@
 package org.example.mypost.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.example.mypost.entity.Authentication.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class User implements UserDetails{
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -25,7 +24,10 @@ public class User implements UserDetails{
     private int userId;
 
     @Column(name = "firstname", nullable = false, length = 50)
-    private String username;
+    private String firstName;
+
+    @Column(name = "lastname", nullable = false, length = 50)
+    private String lastName;
 
     @Column(name = "email", nullable = false, length = 100)
     private String email;
@@ -34,8 +36,14 @@ public class User implements UserDetails{
     @Column(name = "password", nullable = false, length = 100)
     private String password;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at")
     private Timestamp createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Timestamp(System.currentTimeMillis());
+    }
+
 
     //relation to UserFriends
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -65,15 +73,14 @@ public class User implements UserDetails{
     }
 
     @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
     public String getUsername() {
         return email;
     }
 
+    @Override
+    public String getPassword() {
+        return password;
+    }
     @Override
     public boolean isAccountNonExpired() {
         return true;

@@ -15,7 +15,7 @@ public class UserUtils{
         List<Posts> userPosts = Boolean.TRUE.equals( posts ) ? user.getPosts() : null;
         UserDto userDto = UserDto.builder()
                 .id( user.getUserId())
-                .name( user.getUsername())
+                .firstName( user.getFirstName())
                 .email( user.getEmail())
                 .createdAt( user.getCreatedAt())
                 .friends(userFriends)
