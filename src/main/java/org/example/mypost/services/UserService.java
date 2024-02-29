@@ -9,11 +9,11 @@ public interface UserService{
     List<User> getAllUsers();
     User getUserById(int id);
 
-    User getUserByName(String name);
+    List<User> getUsersByFirstName(String name);
 
     User getUserByEmail(String email);
 
-    void addUser(User user);
+    List<User> getUserByLastName(String lastName);
 
 
 }

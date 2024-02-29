@@ -29,8 +29,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getUserByName(String name) {
-        User user = userRepository.findByFirstName(name).orElseThrow(()-> new UserNotFoundException( "User not found with name: " + name));
+    public List<User> getUsersByFirstName(String name) {
+        List<User> user = userRepository.findByFirstName(name);
         return user;
     }
 
@@ -41,8 +41,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void addUser(User user) {
-        userRepository.save(user);
+    public List<User> getUserByLastName(String lastName) {
+        List<User> user = userRepository.findByLastName(lastName);
+        return user;
     }
 
 }

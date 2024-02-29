@@ -41,11 +41,31 @@ public ResponseEntity<?> getUserById(@RequestParam int id, @RequestParam(require
     return ResponseEntity.ok( userDto );
 }
 
-@GetMapping("/userByName")
+@GetMapping("/userByFirstName")
 public ResponseEntity<?> getUserByName(@RequestParam String name, @RequestParam(required = false) Boolean friends, @RequestParam(required = false) Boolean posts) {
-    User user = userService.getUserByName( name );
-    UserDto userDto = userUtils.getUserDto( friends , posts , user );
-    return ResponseEntity.ok( userDto );
+    List<User> userList = userService.getUsersByFirstName( name );
+    UserListDto response = new UserListDto();
+    List<UserDto> userDtoList = new ArrayList<>();
+    for (User user : userList) {
+        UserDto userDto = userUtils.getUserDto( friends , posts , user );
+        userDtoList.add(userDto);
+    }
+    response.setUserList(userDtoList);
+    return ResponseEntity.ok(response);
+}
+
+@GetMapping("/userByLastName")
+public ResponseEntity<?> getUserByLastName(@RequestParam String lastName, @RequestParam(required = false) Boolean friends, @RequestParam(required = false) Boolean posts) {
+    List<User> userList = userService.getUserByLastName( lastName );
+    UserListDto response = new UserListDto();
+    List<UserDto> userDtoList = new ArrayList<>();
+
+    for (User user : userList) {
+        UserDto userDto = userUtils.getUserDto( friends , posts , user );
+        userDtoList.add(userDto);
+    }
+    response.setUserList(userDtoList);
+    return ResponseEntity.ok(response);
 }
 
 @GetMapping("/userByEmail")
