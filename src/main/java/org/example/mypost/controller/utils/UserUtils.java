@@ -1,5 +1,6 @@
 package org.example.mypost.controller.utils;
 
+import org.example.mypost.Dto.UserResponse.UserListDto;
 import org.example.mypost.Dto.UserResponse.UserOptions.UserDto;
 import org.example.mypost.dao.PostsRepository;
 import org.example.mypost.dao.UserFriendsRepository;
@@ -8,10 +9,12 @@ import org.example.mypost.entity.User;
 import org.example.mypost.entity.UserFriends;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 //@Service
 //public class UserUtils{
@@ -56,5 +59,19 @@ public class UserUtils {
                 .posts(userPosts != null ? userPosts.getContent() : null)
                 .build();
         return userDto;
+    }
+
+    public UserDto getUserDto(User user, int friends, int posts, int friendsPage, int postsPage) {
+        Pageable friendsPageable =  friends > 0 ? PageRequest.of(friendsPage, friends) : null;
+        Pageable postsPageable =  posts > 0 ? PageRequest.of(postsPage, posts) : null;
+        return getUserDto(friends, posts, user, friendsPageable, postsPageable);
+    }
+
+    public UserListDto getUserListDto(List<User> userList, int friends, int posts, int friendsPage, int postsPage) {
+        UserListDto response = new UserListDto();
+        response.setUserList(userList.stream()
+                .map(user -> getUserDto(user, friends, posts, friendsPage, postsPage))
+                .collect( Collectors.toList()));
+        return response;
     }
 }
