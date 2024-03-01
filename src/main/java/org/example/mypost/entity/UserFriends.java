@@ -1,6 +1,7 @@
 package org.example.mypost.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -24,14 +25,14 @@ public class UserFriends {
     private int friendshipId;
 
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JsonBackReference
+    @ManyToOne()
+    @JoinColumn(name = "user_email", referencedColumnName = "email")
     private User user;
 
     @JsonIgnoreProperties({"userFriends","posts"})
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "friend_id", referencedColumnName = "user_id")
+    @ManyToOne()
+    @JoinColumn(name = "friend_email", referencedColumnName = "email")
     private User friend;
 
     @Column(name = "created_at")

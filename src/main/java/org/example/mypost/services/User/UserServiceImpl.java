@@ -1,9 +1,11 @@
 package org.example.mypost.services.User;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.example.mypost.dao.UserFriendsRepository;
 import org.example.mypost.dao.UserRepository;
 import org.example.mypost.entity.User;
+import org.example.mypost.entity.UserFriends;
 import org.example.mypost.exception.UserNotFoundException;
 import org.example.mypost.services.User.UserService;
 import org.springframework.stereotype.Service;
@@ -46,5 +48,20 @@ public class UserServiceImpl implements UserService{
         List<User> user = userRepository.findByLastName(lastName);
         return user;
     }
+
+    @Override
+@Transactional
+public String saveUserFriend(UserFriends userFriends) {
+    User user = userRepository.findByEmail(userFriends.getUser().getEmail())
+        .orElseThrow(() -> new UserNotFoundException("User not found with email: " + userFriends.getUser().getEmail()));
+    User friend = userRepository.findByEmail(userFriends.getFriend().getEmail())
+        .orElseThrow(() -> new UserNotFoundException("User not found with email: " + userFriends.getFriend().getEmail()));
+
+    userFriends.setUser(user);
+    userFriends.setFriend(friend);
+
+    userFriendsRepository.save(userFriends);
+    return "user added to friends";
+}
 
 }

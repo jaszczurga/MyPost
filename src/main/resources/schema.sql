@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     firstname VARCHAR(50) NOT NULL,
     lastname VARCHAR(50) NOT NULL,
-    email VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE ,
     password VARCHAR(100) NOT NULL,
     role ENUM('ADMIN', 'USER') DEFAULT 'USER',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -36,14 +36,15 @@ CREATE TABLE IF NOT EXISTS likes (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
+
 CREATE TABLE IF NOT EXISTS user_friends (
    friendship_id INT AUTO_INCREMENT PRIMARY KEY,
-   user_id INT,
-   friend_id INT,
+   user_email VARCHAR(100),
+   friend_email VARCHAR(100),
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-   FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-   FOREIGN KEY (friend_id) REFERENCES users(user_id) ON DELETE CASCADE,
-   CONSTRAINT unique_friendship UNIQUE (user_id, friend_id)
+   FOREIGN KEY (user_email) REFERENCES users(email) ON DELETE CASCADE,
+   FOREIGN KEY (friend_email) REFERENCES users(email) ON DELETE CASCADE,
+   CONSTRAINT unique_friendship UNIQUE (user_email, friend_email)
 );
 
 CREATE TABLE IF NOT EXISTS conversations (

@@ -1,6 +1,7 @@
 package org.example.mypost.services.User;
 
 import org.example.mypost.entity.User;
+import org.example.mypost.entity.UserFriends;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public interface UserService{
     User getUserByEmail(String email);
 
     List<User> getUserByLastName(String lastName);
+
+    String saveUserFriend(UserFriends userFriends);
 
 
 }
