@@ -1,5 +1,8 @@
 package org.example.mypost.controller;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.example.mypost.Dto.UserResponse.UserOptions.UserDto;
 import org.example.mypost.Dto.UserResponse.UserListDto;
@@ -75,4 +78,21 @@ public ResponseEntity<?> saveFriendShip(@RequestBody UserFriends uf){
     return ResponseEntity.ok(userService.saveUserFriend( uf ));
 }
 
+
+//    @PostMapping("/createFriendShip")
+//public ResponseEntity<?> saveFriendShip(@RequestBody FriendshipRequest request){
+//    return ResponseEntity.ok(userService.saveUserFriend( request.userId , request.friendId));
+//}
+//
+//    @Data
+//    @AllArgsConstructor
+//    @NoArgsConstructor
+//    private static class FriendshipRequest {
+//
+//        private int userId;
+//        private int friendId;
+//
+//    }
+
 }
+

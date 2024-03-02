@@ -39,12 +39,13 @@ CREATE TABLE IF NOT EXISTS likes (
 
 CREATE TABLE IF NOT EXISTS user_friends (
    friendship_id INT AUTO_INCREMENT PRIMARY KEY,
-   user_email VARCHAR(100),
-   friend_email VARCHAR(100),
+   user1_id INT,
+   user2_id INT,
+    status INT,
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-   FOREIGN KEY (user_email) REFERENCES users(email) ON DELETE CASCADE,
-   FOREIGN KEY (friend_email) REFERENCES users(email) ON DELETE CASCADE,
-   CONSTRAINT unique_friendship UNIQUE (user_email, friend_email)
+   FOREIGN KEY (user1_id) REFERENCES users(user_id) ON DELETE CASCADE,
+   FOREIGN KEY (user2_id) REFERENCES users(user_id) ON DELETE CASCADE,
+   CONSTRAINT unique_friendship UNIQUE (user1_id, user2_id)
 );
 
 CREATE TABLE IF NOT EXISTS conversations (

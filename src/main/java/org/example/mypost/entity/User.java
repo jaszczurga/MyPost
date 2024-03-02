@@ -1,5 +1,7 @@
 package org.example.mypost.entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.example.mypost.entity.Authentication.Role;
@@ -46,8 +48,12 @@ public class User implements UserDetails{
 
 
     //relation to UserFriends
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user1", cascade = CascadeType.ALL)
     private List<UserFriends> userFriends;
+
+//    @OneToMany(mappedBy = "user2", cascade = CascadeType.ALL)
+//    private List<UserFriends> userFriends2;
+
 
     //relation to Posts
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

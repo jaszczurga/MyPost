@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 @Data
 @Entity
 @Table (name = "user_friends",
-        uniqueConstraints = {@UniqueConstraint (columnNames = {"user_id", "friend_id"})})
+        uniqueConstraints = {@UniqueConstraint (columnNames = {"user1_id", "user2_id"})})
 public class UserFriends {
 
     @Id
@@ -27,13 +27,13 @@ public class UserFriends {
 
     @JsonBackReference
     @ManyToOne()
-    @JoinColumn(name = "user_email", referencedColumnName = "email")
-    private User user;
+    @JoinColumn(name = "user1_id", referencedColumnName = "user_id")
+    private User user1;
 
-    @JsonIgnoreProperties({"userFriends","posts"})
+    @JsonIgnoreProperties({"posts"})
     @ManyToOne()
-    @JoinColumn(name = "friend_email", referencedColumnName = "email")
-    private User friend;
+    @JoinColumn(name = "user2_id", referencedColumnName = "user_id")
+    private User user2;
 
     @Column(name = "created_at")
     private Timestamp createdAt;

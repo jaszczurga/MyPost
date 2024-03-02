@@ -16,7 +16,9 @@ public interface UserService{
 
     List<User> getUserByLastName(String lastName);
 
-    String saveUserFriend(UserFriends userFriends);
+//
+//String saveUserFriend(int userId , int friendId);
+String saveUserFriend(UserFriends userFriends);
 
 
 }
