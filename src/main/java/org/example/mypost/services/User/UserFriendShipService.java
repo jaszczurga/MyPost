@@ -6,4 +6,6 @@ public interface UserFriendShipService{
 
 
     Boolean deleteUserFriendShip(int i);
+
+    Boolean acceptUserFriendShip(int i);
 }
