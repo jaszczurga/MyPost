@@ -71,4 +71,16 @@ public class UserFriendShipServiceImpl implements UserFriendShipService{
         userFriendsRepository.save(userFriends);
         return true;
     }
+
+    @Override
+    public UserFriends findRelationShipWithGivenUser(int i) {
+        int loggedInUserId = authService.getLoggedInUserId();
+        User user = userRepository.findById(loggedInUserId)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + loggedInUserId));
+        User userToGet = userRepository.findById(i)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + i));
+
+        return userFriendsRepository.findFriendshipByUser1AndUser2(user, userToGet);
+    }
+
 }

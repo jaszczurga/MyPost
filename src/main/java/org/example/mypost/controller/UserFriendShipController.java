@@ -36,5 +36,11 @@ public class UserFriendShipController{
         return ResponseEntity.ok(userFriendShipService.acceptUserFriendShip( Integer.parseInt( userToAcceptId.getId() ) ));
     }
 
+    //get relationship for given user
+    @GetMapping ("/getRelationShip")
+    public ResponseEntity<?> getRelationship(@RequestBody AddUserRequestDto userToGetId){
+        return ResponseEntity.ok(userFriendShipService.findRelationShipWithGivenUser( Integer.parseInt( userToGetId.getId() ) ));
+    }
+
 
 }
