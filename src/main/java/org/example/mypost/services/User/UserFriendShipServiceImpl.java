@@ -67,6 +67,8 @@ public class UserFriendShipServiceImpl implements UserFriendShipService{
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + i));
 
         UserFriends userFriends = userFriendsRepository.findFriendshipByUser1AndUser2(user, userToAccept);
+        if(userFriends.getPendingFriend() != user)
+            throw new RuntimeException("You are not allowed to accept this friend request");
         userFriends.setStatus("ACCEPTED");
         userFriendsRepository.save(userFriends);
         return true;
