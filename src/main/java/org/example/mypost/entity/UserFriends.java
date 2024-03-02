@@ -25,12 +25,12 @@ public class UserFriends {
     private int friendshipId;
 
 
-    @JsonBackReference
+    @JsonIgnoreProperties({"posts", "userFriends","role","authorities","enabled","accountNonExpired","accountNonLocked","credentialsNonExpired","username"})
     @ManyToOne()
     @JoinColumn(name = "user1_id", referencedColumnName = "user_id")
     private User user1;
 
-    @JsonIgnoreProperties({"posts"})
+    @JsonIgnoreProperties({"posts", "userFriends","role","authorities","enabled","accountNonExpired","accountNonLocked","credentialsNonExpired","username"})
     @ManyToOne()
     @JoinColumn(name = "user2_id", referencedColumnName = "user_id")
     private User user2;
@@ -38,4 +38,14 @@ public class UserFriends {
     @Column(name = "created_at")
     private Timestamp createdAt;
 
+    @Column(name = "status")
+    private String status = Status.PENDING.toString();
+
+
+}
+
+enum Status{
+    PENDING,
+    ACCEPTED,
+    REJECTED
 }

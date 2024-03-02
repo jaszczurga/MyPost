@@ -47,7 +47,7 @@ public class UserUtils {
     }
 
     public UserDto getUserDto(int friends, int posts, User user, Pageable friendsPageable, Pageable postsPageable) {
-        Page<UserFriends> userFriends = friends > 0 ? userFriendsRepository.findByUser1(user, friendsPageable) : null;
+        Page<UserFriends> userFriends = friends > 0 ? userFriendsRepository.findByUser(user, friendsPageable) : null;
         Page<Posts> userPosts = posts > 0 ? postsRepository.findByUser(user, postsPageable) : null;
         UserDto userDto = UserDto.builder()
                 .id(user.getUserId())

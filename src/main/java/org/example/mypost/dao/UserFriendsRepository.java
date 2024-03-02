@@ -13,5 +13,5 @@ public interface UserFriendsRepository extends JpaRepository<UserFriends, Intege
 
 
     @Query("SELECT uf FROM UserFriends uf WHERE uf.user1 = :user or uf.user2 = :user")
-    Page<UserFriends> findByUser1(User user , Pageable friendsPageable);
+    Page<UserFriends> findByUser(User user , Pageable friendsPageable);
 }
