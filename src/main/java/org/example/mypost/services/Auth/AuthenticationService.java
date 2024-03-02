@@ -7,8 +7,11 @@ import org.example.mypost.Dto.Authentication.RegisterRequest;
 import org.example.mypost.dao.UserRepository;
 import org.example.mypost.entity.Authentication.Role;
 import org.example.mypost.entity.User;
+import org.example.mypost.exception.UserNotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -55,4 +58,19 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .build();
     }
+
+    public int getLoggedInUserId() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            String username = ((UserDetails)principal).getUsername();
+            User user = userRepository.findByEmail(username)
+                    .orElseThrow(() -> new UserNotFoundException("User not found with email: " + username));
+            return user.getUserId();
+        }
+
+        throw new IllegalStateException("User not logged in");
+    }
+
+
 }

@@ -7,6 +7,7 @@ import org.example.mypost.dao.UserRepository;
 import org.example.mypost.entity.User;
 import org.example.mypost.entity.UserFriends;
 import org.example.mypost.exception.UserNotFoundException;
+import org.example.mypost.services.Auth.AuthenticationService;
 import org.example.mypost.services.User.UserService;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
     private final UserFriendsRepository userFriendsRepository;
+    private final AuthenticationService authService;
 
     @Override
     public List<User> getAllUsers() {
@@ -49,30 +51,46 @@ public class UserServiceImpl implements UserService{
         return user;
     }
 
-        @Override
+//        @Override
+//@Transactional
+//public String saveUserFriend(UserFriends userFriends) {
+//    User user = userRepository.findByEmail(userFriends.getUser1().getEmail())
+//        .orElseThrow(() -> new UserNotFoundException("User not found with email: " + userFriends.getUser1().getEmail()));
+//    User friend = userRepository.findByEmail(userFriends.getUser2().getEmail())
+//        .orElseThrow(() -> new UserNotFoundException("User not found with email: " + userFriends.getUser2().getEmail()));
+//
+//
+//    userFriends.setUser1(user);
+//    userFriends.setUser2(friend);
+//    userFriends.setPendingFriend( friend );
+//
+//
+//     UserFriends result = userFriendsRepository.save(userFriends);
+//
+//    return "user added to friends";
+//}
+
+
+@Override
 @Transactional
-public String saveUserFriend(UserFriends userFriends) {
-    User user = userRepository.findByEmail(userFriends.getUser1().getEmail())
-        .orElseThrow(() -> new UserNotFoundException("User not found with email: " + userFriends.getUser1().getEmail()));
-    User friend = userRepository.findByEmail(userFriends.getUser2().getEmail())
-        .orElseThrow(() -> new UserNotFoundException("User not found with email: " + userFriends.getUser2().getEmail()));
+public String saveUserFriend(int userToAddId) {
+    User user2 = userRepository.findById(userToAddId)
+            .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userToAddId));
 
+    // Assuming you have a method to get the ID of the currently logged in user
+    int loggedInUserId = authService.getLoggedInUserId();
+    User user1 = userRepository.findById(loggedInUserId)
+            .orElseThrow(() -> new UserNotFoundException("User not found with id: " + loggedInUserId));
 
-    userFriends.setUser1(user);
-    userFriends.setUser2(friend);
+    UserFriends userFriends = new UserFriends();
+    userFriends.setUser1(user1);
+    userFriends.setUser2(user2);
+    userFriends.setPendingFriend(user2);
 
-
-     UserFriends result = userFriendsRepository.save(userFriends);
-//
-//    user.getUserFriends().add(result);
-//    userRepository.save(user);
-//
-//    friend.getUserFriends().add(result);
-//    userRepository.save(friend);
+    UserFriends result = userFriendsRepository.save(userFriends);
 
     return "user added to friends";
 }
-
 //    @Transactional
 //    public String saveUserFriend(int userId , int friendId) {
 //        User user = userRepository.findById( userId )

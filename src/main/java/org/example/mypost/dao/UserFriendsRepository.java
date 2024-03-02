@@ -12,6 +12,7 @@ import java.util.List;
 public interface UserFriendsRepository extends JpaRepository<UserFriends, Integer>{
 
 
-    @Query("SELECT uf FROM UserFriends uf WHERE uf.user1 = :user or uf.user2 = :user")
-    Page<UserFriends> findByUser(User user , Pageable friendsPageable);
+    // returns only accepted friends
+    @Query("SELECT uf FROM UserFriends uf WHERE (uf.user1 = :user or uf.user2 = :user) and uf.status='ACCEPTED'")
+    Page<UserFriends> findAllAcceptedFriendShipsForGivenUser(User user , Pageable friendsPageable);
 }

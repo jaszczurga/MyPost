@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS user_friends (
    friendship_id INT AUTO_INCREMENT PRIMARY KEY,
    user1_id INT,
    user2_id INT,
+   pending_user_id INT,
     status ENUM('pending', 'accepted') DEFAULT 'pending',
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    FOREIGN KEY (user1_id) REFERENCES users(user_id) ON DELETE CASCADE,

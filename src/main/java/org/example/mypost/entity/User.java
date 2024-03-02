@@ -47,7 +47,7 @@ public class User implements UserDetails{
     }
 
 
-    //relation to UserFriends
+    //relation to UserFriends also this pending
     @OneToMany(mappedBy = "user1", cascade = CascadeType.ALL)
     private List<UserFriends> userFriends;
 
