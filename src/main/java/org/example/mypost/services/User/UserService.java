@@ -20,7 +20,7 @@ public interface UserService{
 //String saveUserFriend(int userId , int friendId);
 //String saveUserFriend(UserFriends userFriends);
 
-    String saveUserFriend(int id);
+
 
 
 }

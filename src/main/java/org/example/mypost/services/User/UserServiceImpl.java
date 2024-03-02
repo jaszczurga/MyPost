@@ -71,26 +71,26 @@ public class UserServiceImpl implements UserService{
 //}
 
 
-@Override
-@Transactional
-public String saveUserFriend(int userToAddId) {
-    User user2 = userRepository.findById(userToAddId)
-            .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userToAddId));
-
-    // Assuming you have a method to get the ID of the currently logged in user
-    int loggedInUserId = authService.getLoggedInUserId();
-    User user1 = userRepository.findById(loggedInUserId)
-            .orElseThrow(() -> new UserNotFoundException("User not found with id: " + loggedInUserId));
-
-    UserFriends userFriends = new UserFriends();
-    userFriends.setUser1(user1);
-    userFriends.setUser2(user2);
-    userFriends.setPendingFriend(user2);
-
-    UserFriends result = userFriendsRepository.save(userFriends);
-
-    return "user added to friends";
-}
+//@Override
+//@Transactional
+//public String saveUserFriend(int userToAddId) {
+//    User user2 = userRepository.findById(userToAddId)
+//            .orElseThrow(() -> new UserNotFoundException("User not found with id: " + userToAddId));
+//
+//    // Assuming you have a method to get the ID of the currently logged in user
+//    int loggedInUserId = authService.getLoggedInUserId();
+//    User user1 = userRepository.findById(loggedInUserId)
+//            .orElseThrow(() -> new UserNotFoundException("User not found with id: " + loggedInUserId));
+//
+//    UserFriends userFriends = new UserFriends();
+//    userFriends.setUser1(user1);
+//    userFriends.setUser2(user2);
+//    userFriends.setPendingFriend(user2);
+//
+//    UserFriends result = userFriendsRepository.save(userFriends);
+//
+//    return "user added to friends";
+//}
 //    @Transactional
 //    public String saveUserFriend(int userId , int friendId) {
 //        User user = userRepository.findById( userId )

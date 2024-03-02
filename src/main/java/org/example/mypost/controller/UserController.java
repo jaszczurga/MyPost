@@ -72,11 +72,7 @@ public class UserController{
         return ResponseEntity.ok(userUtils.getUserDto(userService.getUserByEmail(email), friends, posts, friendsPage, postsPage));
     }
 
-    //create friend still in pending status from user added
-    @PostMapping("/createFriendShip")
-    public ResponseEntity<?> saveFriendShip(@RequestBody AddUserRequestDto userToAddId){
-        return ResponseEntity.ok(userService.saveUserFriend( Integer.parseInt( userToAddId.getId() ) ));
-    }
+
 
 
 ////create friend

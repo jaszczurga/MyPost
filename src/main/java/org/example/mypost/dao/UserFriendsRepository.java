@@ -15,4 +15,9 @@ public interface UserFriendsRepository extends JpaRepository<UserFriends, Intege
     // returns only accepted friends
     @Query("SELECT uf FROM UserFriends uf WHERE (uf.user1 = :user or uf.user2 = :user) and uf.status='ACCEPTED'")
     Page<UserFriends> findAllAcceptedFriendShipsForGivenUser(User user , Pageable friendsPageable);
+
+
+    //return friendship with give user1 and user2 ids
+    @Query("SELECT uf FROM UserFriends uf WHERE (uf.user1 = :user1 and uf.user2 = :user2) or (uf.user1 = :user2 and uf.user2 = :user1)")
+    <Optional>UserFriends findFriendshipByUser1AndUser2(User user1 , User user2);
 }
