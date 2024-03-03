@@ -1,6 +1,7 @@
 package org.example.mypost.ws;
 
 
+import org.example.mypost.services.Auth.AuthenticationService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +14,12 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @CrossOrigin(origins = "*")
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
+    private final AuthenticationService authenticationService;
+
+    public WebSocketConfig(AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
+    }
+
     @Override
     public void configureMessageBroker(final MessageBrokerRegistry registry) {
         registry.enableSimpleBroker("/topic");
@@ -23,7 +30,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(final StompEndpointRegistry registry) {
         registry.addEndpoint("/our-websocket")
-                .setHandshakeHandler(new UserHandShakeHandler())
+                .setHandshakeHandler(new UserHandShakeHandler(authenticationService))
                 .setAllowedOriginPatterns( "*" )
                 .withSockJS();
     }

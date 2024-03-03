@@ -7,8 +7,11 @@ import org.example.mypost.dao.UserFriendsRepository;
 import org.example.mypost.dao.UserRepository;
 import org.example.mypost.entity.User;
 import org.example.mypost.entity.UserFriends;
+import org.example.mypost.exception.CannotBeFriendWithYourSelf;
+import org.example.mypost.exception.FriendShipAlreadyExistsException;
 import org.example.mypost.exception.UserNotFoundException;
 import org.example.mypost.services.Auth.AuthenticationService;
+import org.example.mypost.ws.WSService;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,6 +22,8 @@ public class UserFriendShipServiceImpl implements UserFriendShipService{
     private final UserRepository userRepository;
     private final UserFriendsRepository userFriendsRepository;
     private final AuthenticationService authService;
+    private final WSService wsService;
+    private final UserService userService;
 
 
 
@@ -33,12 +38,23 @@ public class UserFriendShipServiceImpl implements UserFriendShipService{
         User user1 = userRepository.findById(loggedInUserId)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + loggedInUserId));
 
+        //check if we try to be friend with ourselves
+        if(user1.getUserId() == user2.getUserId())
+            throw new CannotBeFriendWithYourSelf( "You cannot be friend with yourself" );
+
+        // Check if the friendship already exists
+        UserFriends existingFriendship = userFriendsRepository.findFriendshipByUser1AndUser2(user1, user2);
+        if (existingFriendship != null) {
+            throw new FriendShipAlreadyExistsException( "Friendship already exists" );
+        }
+
         UserFriends userFriends = new UserFriends();
         userFriends.setUser1(user1);
         userFriends.setUser2(user2);
         userFriends.setPendingFriend(user2);
 
         UserFriends result = userFriendsRepository.save(userFriends);
+        wsService.notifyUser(String.valueOf(userToAddId), "you have been added to friends by " + userService.getUserById(1).getFirstName() + " " + userService.getUserById(1).getEmail());
 
         return "user added to friends";
     }

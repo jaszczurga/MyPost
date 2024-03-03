@@ -8,12 +8,11 @@ import org.springframework.stereotype.Service;
 public class WSService {
 
     private final SimpMessagingTemplate messagingTemplate;
-    private final NotificationService notificationService;
+
 
     @Autowired
-    public WSService(SimpMessagingTemplate messagingTemplate, NotificationService notificationService) {
+    public WSService(SimpMessagingTemplate messagingTemplate) {
         this.messagingTemplate = messagingTemplate;
-        this.notificationService = notificationService;
     }
 
 
@@ -21,7 +20,7 @@ public class WSService {
     public void notifyUser(String id, final String message) {
         ResponseMessage response = new ResponseMessage(message);
 
-        notificationService.sendPrivateNotification(id);
+       // notificationService.sendPrivateNotification(id);
         messagingTemplate.convertAndSendToUser(id, "/topic/private-messages",response);
     }
 }

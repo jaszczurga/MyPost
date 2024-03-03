@@ -19,7 +19,8 @@ $(document).ready(function() {
 });
 
 function connect() {
-    var jwtToken = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlVTRVIiLCJzdWIiOiJmQGYuY29tIiwiaWF0IjoxNzA5NDcyNjA4LCJleHAiOjM0NTU5NDcyNjA4fQ.2aMjQyMH6ZzQ_Hd2U2CU29t1tFmd4ZNv9qTCGhcoQUQ";
+    //var jwtToken = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlVTRVIiLCJzdWIiOiJmQGYuY29tIiwiaWF0IjoxNzA5NDcyNjA4LCJleHAiOjM0NTU5NDcyNjA4fQ.2aMjQyMH6ZzQ_Hd2U2CU29t1tFmd4ZNv9qTCGhcoQUQ";
+    var jwtToken = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlVTRVIiLCJzdWIiOiJmMkBmLmNvbSIsImlhdCI6MTcwOTQ5NTQxMSwiZXhwIjozNDU1OTQ5NTQxMX0.jn7lF1l895tocL2LQeFETMDOcrkrGSRhEA6xYNo9auM";
     var socket = new SockJS('http://localhost:8080/our-websocket?token=' + encodeURIComponent(jwtToken));
     stompClient = Stomp.over(socket);
     var headers = {

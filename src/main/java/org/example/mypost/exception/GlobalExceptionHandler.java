@@ -26,5 +26,27 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
         return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler (CannotBeFriendWithYourSelf.class)
+    public ResponseEntity<ErrorResponseDto> handleCannotBeFriendWithYourSelf(CannotBeFriendWithYourSelf e, WebRequest request){
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+                request.getDescription(false),
+                HttpStatus.METHOD_NOT_ALLOWED,
+                e.getMessage(),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.METHOD_NOT_ALLOWED);
+    }
+
+    @ExceptionHandler (FriendShipAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponseDto> handleFriendShipAlreadyExistsException(FriendShipAlreadyExistsException e, WebRequest request){
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+                request.getDescription(false),
+                HttpStatus.METHOD_NOT_ALLOWED,
+                e.getMessage(),
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.METHOD_NOT_ALLOWED);
+    }
+
 
 }

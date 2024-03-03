@@ -44,11 +44,7 @@ public class UserController{
                                          @RequestParam(required = false, defaultValue = "0") int friends,
                                          @RequestParam(required = false, defaultValue = "0") int posts,
                                          @RequestParam(required = false, defaultValue = "0") int friendsPage,
-                                         @RequestParam(required = false, defaultValue = "0") int postsPage,
-                                         @RequestParam(required = false, defaultValue = "0") String ws) {
-
-
-        wsService.notifyUser(String.valueOf(ws), "you have been added to friends by dick " + ws);
+                                         @RequestParam(required = false, defaultValue = "0") int postsPage) {
 
         return ResponseEntity.ok(userUtils.getUserDto(userService.getUserById(id), friends, posts, friendsPage, postsPage));
     }

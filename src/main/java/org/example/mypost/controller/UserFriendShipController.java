@@ -6,6 +6,7 @@ import org.example.mypost.Dto.UserRequest.AddUserRequestDto;
 import org.example.mypost.controller.utils.UserUtils;
 import org.example.mypost.services.User.UserFriendShipService;
 import org.example.mypost.services.User.UserService;
+import org.example.mypost.ws.WSService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ public class UserFriendShipController{
     final UserService userService;
     final UserFriendShipService userFriendShipService;
     final UserUtils userUtils;
+    final WSService wsService;
 
     //create friend still in pending status from user added
     @PostMapping ("/createFriendShip")
