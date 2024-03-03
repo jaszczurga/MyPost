@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello WS</title>
+<!--    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" rel="stylesheet">-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="message-history" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Messages
+                        <span
+                                id="notifications"
+                                style="
+                                    color: white;
+                                    background-color: red;
+                                    padding-left: 15px;
+                                    padding-right: 15px;">
+                            </span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody id="messages">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

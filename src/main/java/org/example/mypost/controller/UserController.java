@@ -11,6 +11,7 @@ import org.example.mypost.controller.utils.UserUtils;
 import org.example.mypost.entity.User;
 import org.example.mypost.entity.UserFriends;
 import org.example.mypost.services.User.UserService;
+import org.example.mypost.ws.WSService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +28,14 @@ public class UserController{
 
     final UserService userService;
     final UserUtils userUtils;
+    final WSService wsService;
+
     @GetMapping("/allUsers")
     public ResponseEntity<?> getAllUsers(@RequestParam(required = false, defaultValue = "0") int friends,
                                          @RequestParam(required = false, defaultValue = "0") int posts,
                                          @RequestParam(required = false, defaultValue = "0") int friendsPage,
                                          @RequestParam(required = false, defaultValue = "0") int postsPage) {
+
         return ResponseEntity.ok(userUtils.getUserListDto(userService.getAllUsers(), friends, posts, friendsPage, postsPage));
     }
 
@@ -40,7 +44,12 @@ public class UserController{
                                          @RequestParam(required = false, defaultValue = "0") int friends,
                                          @RequestParam(required = false, defaultValue = "0") int posts,
                                          @RequestParam(required = false, defaultValue = "0") int friendsPage,
-                                         @RequestParam(required = false, defaultValue = "0") int postsPage) {
+                                         @RequestParam(required = false, defaultValue = "0") int postsPage,
+                                         @RequestParam(required = false, defaultValue = "0") String ws) {
+
+
+        wsService.notifyUser(String.valueOf(ws), "you have been added to friends by dick " + ws);
+
         return ResponseEntity.ok(userUtils.getUserDto(userService.getUserById(id), friends, posts, friendsPage, postsPage));
     }
 
