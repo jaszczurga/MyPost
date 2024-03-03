@@ -20,11 +20,15 @@ spring:
       password: admin
 
 
-
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+logging:
+    level:
+        org:
+        springframework:
+            security: DEBUG
 
 

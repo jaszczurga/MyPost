@@ -19,9 +19,14 @@ $(document).ready(function() {
 });
 
 function connect() {
-    var socket = new SockJS('http://localhost:8080/our-websocket');
+    var jwtToken = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlVTRVIiLCJzdWIiOiJmQGYuY29tIiwiaWF0IjoxNzA5NDcyNjA4LCJleHAiOjM0NTU5NDcyNjA4fQ.2aMjQyMH6ZzQ_Hd2U2CU29t1tFmd4ZNv9qTCGhcoQUQ";
+    var socket = new SockJS('http://localhost:8080/our-websocket?token=' + encodeURIComponent(jwtToken));
     stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
+    var headers = {
+        "Authorization": jwtToken
+    };
+
+    stompClient.connect(headers, function (frame) {
         console.log('Connected: ' + frame);
         updateNotificationDisplay();
         stompClient.subscribe('/topic/messages', function (message) {
@@ -70,4 +75,10 @@ function updateNotificationDisplay() {
 function resetNotificationCount() {
     notificationCount = 0;
     updateNotificationDisplay();
+}
+
+function setJwtToken(token) {
+    console.log("Setting JWT token");
+    var token = "Bearer " + token;
+    document.cookie = "jwtToken=" + token;
 }
