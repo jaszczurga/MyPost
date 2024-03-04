@@ -54,7 +54,7 @@ public class UserFriendShipServiceImpl implements UserFriendShipService{
         userFriends.setPendingFriend(user2);
 
         UserFriends result = userFriendsRepository.save(userFriends);
-        wsService.notifyUser(String.valueOf(userToAddId), "you have been added to friends by " + userService.getUserById(1).getFirstName() + " " + userService.getUserById(1).getEmail());
+        wsService.notifyUser(String.valueOf(userToAddId), "you have been invited to friendlist by  " + userService.getUserById(authService.getLoggedInUserId()).getFirstName() + " " + userService.getUserById(authService.getLoggedInUserId()).getEmail());
 
         return "user added to friends";
     }
@@ -87,6 +87,7 @@ public class UserFriendShipServiceImpl implements UserFriendShipService{
             throw new RuntimeException("You are not allowed to accept this friend request");
         userFriends.setStatus("ACCEPTED");
         userFriendsRepository.save(userFriends);
+        wsService.notifyUser(String.valueOf(i), "you have been accepted to friendlist by  " + userService.getUserById(authService.getLoggedInUserId()).getFirstName() + " " + userService.getUserById(authService.getLoggedInUserId()).getEmail());
         return true;
     }
 

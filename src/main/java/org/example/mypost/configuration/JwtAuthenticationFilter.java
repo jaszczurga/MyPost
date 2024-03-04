@@ -2,6 +2,7 @@ package org.example.mypost.configuration;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
         final String jwtFromParam = request.getParameter("token");
         final String jwt;
         final String userEmail;
+
 
         if(jwtFromHeader != null && jwtFromHeader.startsWith("Bearer ")) {
             jwt = jwtFromHeader.substring(7);

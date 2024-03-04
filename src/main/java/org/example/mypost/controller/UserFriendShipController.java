@@ -21,27 +21,27 @@ public class UserFriendShipController{
     final WSService wsService;
 
     //create friend still in pending status from user added
-    @PostMapping ("/createFriendShip")
-    public ResponseEntity<?> saveFriendShip(@RequestBody AddUserRequestDto userToAddId){
-        return ResponseEntity.ok(userFriendShipService.saveUserFriend( Integer.parseInt( userToAddId.getId() ) ));
+    @PostMapping ("/createFriendShip/{id}")
+    public ResponseEntity<?> saveFriendShip(@PathVariable int id){
+        return ResponseEntity.ok(userFriendShipService.saveUserFriend( id ));
     }
 
     //delete friendShip which is equal to rejecting invitation from user added
-    @DeleteMapping ("/deleteFriendShip")
-    public ResponseEntity<?> deleteFriendShip(@RequestBody AddUserRequestDto userToDeleteId){
-        return ResponseEntity.ok(userFriendShipService.deleteUserFriendShip( Integer.parseInt( userToDeleteId.getId() ) ));
+    @DeleteMapping ("/deleteFriendShip/{id}")
+    public ResponseEntity<?> deleteFriendShip(@PathVariable int id){
+        return ResponseEntity.ok(userFriendShipService.deleteUserFriendShip( id ));
     }
 
     //accept friendShip which is equal to accepting invitation from user added and changing status of friendship to accepted
-    @PutMapping ("/acceptFriendShip")
-    public ResponseEntity<?> acceptFriendShip(@RequestBody AddUserRequestDto userToAcceptId){
-        return ResponseEntity.ok(userFriendShipService.acceptUserFriendShip( Integer.parseInt( userToAcceptId.getId() ) ));
+    @PutMapping ("/acceptFriendShip/{id}")
+    public ResponseEntity<?> acceptFriendShip(@PathVariable int id){
+        return ResponseEntity.ok(userFriendShipService.acceptUserFriendShip( id ));
     }
 
     //get relationship for given user
-    @GetMapping ("/getRelationShip")
-    public ResponseEntity<?> getRelationship(@RequestBody AddUserRequestDto userToGetId){
-        return ResponseEntity.ok(userFriendShipService.findRelationShipWithGivenUser( Integer.parseInt( userToGetId.getId() ) ));
+    @GetMapping ("/getRelationShip/{id}")
+    public ResponseEntity<?> getRelationship(@PathVariable int id){
+        return ResponseEntity.ok(userFriendShipService.findRelationShipWithGivenUser( id ));
     }
 
 
