@@ -108,14 +108,14 @@ function connect(token) {
         console.log('Connected: ' + frame);
         updateNotificationDisplay();
         stompClient.subscribe('/user/topic/private-messages', function (message) {
-            showMessage(JSON.parse(message.body).content);
+            showMessage(JSON.parse(message.body));
         });
     });
 }
 
 function showMessage(message) {
     // Assuming the request ID is included in the message object
-    var userId = message.userId;
+    var requestId = message.userId;
     $("#messages").append("<tr><td>" + message.content + "</td><td><button class='accept-button' data-request-id='" + requestId + "'>Accept</button></td></tr>");
 }
 
