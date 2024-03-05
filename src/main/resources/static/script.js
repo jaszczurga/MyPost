@@ -15,8 +15,11 @@ $(document).ready(function() {
             success: function() {
                 alert("Friend request accepted");
             },
-            error: function() {
+            error: function(jqXHR) {
                 alert("Failed to accept friend request");
+                var errorResponse = JSON.parse(jqXHR.responseText);
+                var errorMessage = errorResponse.errorMessage;
+                $('#error-message').text(errorMessage);
             }
         });
     });
@@ -58,8 +61,11 @@ $(document).ready(function() {
             success: function() {
                 alert("Friend request sent");
             },
-            error: function() {
+            error: function(jqXHR) {
                 alert("Failed to send friend request");
+                var errorResponse = JSON.parse(jqXHR.responseText);
+                var errorMessage = errorResponse.errorMessage;
+                $('#error-message').text(errorMessage);
             }
         });
     });
@@ -106,18 +112,32 @@ function connect(token) {
 
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
+        $('#notifications').css('background-color', 'green'); // Change the color of the notification to green
         updateNotificationDisplay();
-        stompClient.subscribe('/user/topic/private-messages', function (message) {
-            showMessage(JSON.parse(message.body));
+        updateNotificationDisplay();
+        stompClient.subscribe('/user/topic/friend-request-accept', function (message) {
+            notificationCount++;
+            showAcceptedMessage(JSON.parse(message.body));
+        });
+        stompClient.subscribe('/user/topic/friend-request-pending', function (message) {
+            notificationCount++;
+            showInvitationRequest(JSON.parse(message.body));
         });
     });
+
 }
 
-function showMessage(message) {
+function showInvitationRequest(message) {
     // Assuming the request ID is included in the message object
     var requestId = message.userId;
-    $("#messages").append("<tr><td>" + message.content + "</td><td><button class='accept-button' data-request-id='" + requestId + "'>Accept</button></td></tr>");
+    $("#messages").append("<tr><td>" + message.content + "</td><td><button class='accept-button' style='background-color: #4CAF50; color: white; border: none; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;' data-request-id='" + requestId + "'>Accept</button></td></tr>");
 }
+function showAcceptedMessage(message) {
+    // Assuming the request ID is included in the message object
+    var requestId = message.userId;
+    $("#messages").append("<tr><td>" + message.content + "</td></tr>");
+}
+
 
 function sendMessage() {
     console.log("sending message");

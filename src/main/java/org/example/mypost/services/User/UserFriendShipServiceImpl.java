@@ -7,7 +7,7 @@ import org.example.mypost.dao.UserFriendsRepository;
 import org.example.mypost.dao.UserRepository;
 import org.example.mypost.entity.User;
 import org.example.mypost.entity.UserFriends;
-import org.example.mypost.exception.CannotBeFriendWithYourSelf;
+import org.example.mypost.exception.MethodNotAllowed;
 import org.example.mypost.exception.FriendShipAlreadyExistsException;
 import org.example.mypost.exception.UserNotFoundException;
 import org.example.mypost.services.Auth.AuthenticationService;
@@ -40,7 +40,7 @@ public class UserFriendShipServiceImpl implements UserFriendShipService{
 
         //check if we try to be friend with ourselves
         if(user1.getUserId() == user2.getUserId())
-            throw new CannotBeFriendWithYourSelf( "You cannot be friend with yourself" );
+            throw new MethodNotAllowed( "You cannot be friend with yourself" );
 
         // Check if the friendship already exists
         UserFriends existingFriendship = userFriendsRepository.findFriendshipByUser1AndUser2(user1, user2);
@@ -54,8 +54,9 @@ public class UserFriendShipServiceImpl implements UserFriendShipService{
         userFriends.setPendingFriend(user2);
 
         UserFriends result = userFriendsRepository.save(userFriends);
-        wsService.notifyUser(String.valueOf(userToAddId), "you have been invited to friendlist by  " + userService.getUserById(authService.getLoggedInUserId()).getFirstName() + " " + userService.getUserById(authService.getLoggedInUserId()).getEmail());
+        //wsService.notifyUser(String.valueOf(userToAddId), "you have been invited to friendlist by  " + userService.getUserById(authService.getLoggedInUserId()).getFirstName() + " " + userService.getUserById(authService.getLoggedInUserId()).getEmail());
 
+        wsService.notifyUserForFriendRequest(String.valueOf(userToAddId), "you have been invited to friendlist by  " + userService.getUserById(authService.getLoggedInUserId()).getFirstName() + " " + userService.getUserById(authService.getLoggedInUserId()).getEmail());
         return "user added to friends";
     }
 
@@ -84,10 +85,13 @@ public class UserFriendShipServiceImpl implements UserFriendShipService{
 
         UserFriends userFriends = userFriendsRepository.findFriendshipByUser1AndUser2(user, userToAccept);
         if(userFriends.getPendingFriend() != user)
-            throw new RuntimeException("You are not allowed to accept this friend request");
+            throw new MethodNotAllowed( "you are not allowed to accept this friendShip request because you are not pending user" );
+        if(userFriends.getStatus().equals("accepted"))
+            throw new MethodNotAllowed( "You cannot accept this friend request because you are already friends" );
         userFriends.setStatus("ACCEPTED");
         userFriendsRepository.save(userFriends);
-        wsService.notifyUser(String.valueOf(i), "you have been accepted to friendlist by  " + userService.getUserById(authService.getLoggedInUserId()).getFirstName() + " " + userService.getUserById(authService.getLoggedInUserId()).getEmail());
+        wsService.acceptFriendRequest(String.valueOf(i), "you have been accepted to friendlist by  " +  userService.getUserById(authService.getLoggedInUserId()).getFirstName() + " " + userService.getUserById(authService.getLoggedInUserId()).getEmail());
+        //wsService.notifyUser(String.valueOf(i), "you have been accepted to friendlist by  " + userService.getUserById(authService.getLoggedInUserId()).getFirstName() + " " + userService.getUserById(authService.getLoggedInUserId()).getEmail());
         return true;
     }
 

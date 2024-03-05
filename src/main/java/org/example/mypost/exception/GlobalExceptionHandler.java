@@ -1,7 +1,6 @@
 package org.example.mypost.exception;
 
 import org.example.mypost.Dto.exception.ErrorResponseDto;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,8 +25,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
         return new ResponseEntity<>(errorResponseDto, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler (CannotBeFriendWithYourSelf.class)
-    public ResponseEntity<ErrorResponseDto> handleCannotBeFriendWithYourSelf(CannotBeFriendWithYourSelf e, WebRequest request){
+    @ExceptionHandler (MethodNotAllowed.class)
+    public ResponseEntity<ErrorResponseDto> handleCannotBeFriendWithYourSelf(MethodNotAllowed e, WebRequest request){
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(
                 request.getDescription(false),
                 HttpStatus.METHOD_NOT_ALLOWED,
