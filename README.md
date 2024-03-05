@@ -41,23 +41,11 @@ Get all users from database with optional list of friends and posts and ability 
       "createdAt": "2024-02-29T21:20:59.000+00:00",
       "friends": [
         {
-          "friendshipId": 5,
-          "user1": {
-            "userId": 11,
-            "firstName": "fr",
-            "lastName": "fr",
-            "email": "f@f.com",
-            "createdAt": "2024-03-01T17:26:27.000+00:00"
-          },
-          "user2": {
-            "userId": 12,
-            "firstName": "fr",
-            "lastName": "fr",
-            "email": "f2@f.com",
-            "createdAt": "2024-03-01T17:26:39.000+00:00"
-          },
-          "createdAt": "2024-03-02T13:36:12.000+00:00",
-          "status": "accepted"
+          "id": 11,
+          "firstName": "fr",
+          "lastName": "fr",
+          "email": "f@f.com",
+          "createdAt": "2024-03-01T17:26:27.000+00:00"
         }
       ],
       "posts": [
@@ -107,23 +95,11 @@ Get user by id from database with optional list of friends and posts.
   "createdAt": "2024-03-01T17:26:39.000+00:00",
   "friends": [
     {
-      "friendshipId": 5,
-      "user1": {
-        "userId": 11,
-        "firstName": "fr",
-        "lastName": "fr",
-        "email": "f@f.com",
-        "createdAt": "2024-03-01T17:26:27.000+00:00"
-      },
-      "user2": {
-        "userId": 12,
-        "firstName": "fr",
-        "lastName": "fr",
-        "email": "f2@f.com",
-        "createdAt": "2024-03-01T17:26:39.000+00:00"
-      },
-      "createdAt": "2024-03-02T13:36:12.000+00:00",
-      "status": "accepted"
+      "id": 11,
+      "firstName": "fr",
+      "lastName": "fr",
+      "email": "f@f.com",
+      "createdAt": "2024-03-01T17:26:27.000+00:00"
     }
   ],
   "posts": [
@@ -136,6 +112,21 @@ Get user by id from database with optional list of friends and posts.
   ]
 }
 ```
+
+* **Error Messages**
+
+1. User not found
+
+```json
+{
+  "apiPath": "uri=/api/users/userById",
+  "errorCode": "NOT_FOUND",
+  "errorMessage": " not found with the given input data User not found with id: 117",
+  "errorTime": "2024-03-05T12:50:09.0868538"
+}
+```
+
+
 _________________________________
 
 ## Get user by email
@@ -173,23 +164,11 @@ Get user by email from database with optional list of friends and posts.
   "createdAt": "2024-03-01T17:26:39.000+00:00",
   "friends": [
     {
-      "friendshipId": 5,
-      "user1": {
-        "userId": 11,
-        "firstName": "fr",
-        "lastName": "fr",
-        "email": "f@f.com",
-        "createdAt": "2024-03-01T17:26:27.000+00:00"
-      },
-      "user2": {
-        "userId": 12,
-        "firstName": "fr",
-        "lastName": "fr",
-        "email": "f2@f.com",
-        "createdAt": "2024-03-01T17:26:39.000+00:00"
-      },
-      "createdAt": "2024-03-02T13:36:12.000+00:00",
-      "status": "accepted"
+      "id": 11,
+      "firstName": "fr",
+      "lastName": "fr",
+      "email": "f@f.com",
+      "createdAt": "2024-03-01T17:26:27.000+00:00"
     }
   ],
   "posts": [
@@ -200,6 +179,19 @@ Get user by email from database with optional list of friends and posts.
       "likesCount": 0
     }
   ]
+}
+```
+
+* **Error Messages**
+
+1. User not found
+
+```json
+{
+  "apiPath": "uri=/api/users/userByEmail",
+  "errorCode": "NOT_FOUND",
+  "errorMessage": " not found with the given input data User not found with email: a@adwdw.com",
+  "errorTime": "2024-03-05T12:52:10.2193341"
 }
 ```
 
@@ -239,23 +231,11 @@ Get user by first name from database with optional list of friends and posts.
   "createdAt": "2024-03-01T17:26:39.000+00:00",
   "friends": [
     {
-      "friendshipId": 5,
-      "user1": {
-        "userId": 11,
-        "firstName": "fr",
-        "lastName": "fr",
-        "email": "f@f.com",
-        "createdAt": "2024-03-01T17:26:27.000+00:00"
-      },
-      "user2": {
-        "userId": 12,
-        "firstName": "fr",
-        "lastName": "fr",
-        "email": "f2@f.com",
-        "createdAt": "2024-03-01T17:26:39.000+00:00"
-      },
-      "createdAt": "2024-03-02T13:36:12.000+00:00",
-      "status": "accepted"
+      "id": 11,
+      "firstName": "fr",
+      "lastName": "fr",
+      "email": "f@f.com",
+      "createdAt": "2024-03-01T17:26:27.000+00:00"
     }
   ],
   "posts": [
@@ -308,23 +288,11 @@ Get user by last name from database with optional list of friends and posts.
       "createdAt": "2024-02-29T21:20:59.000+00:00",
       "friends": [
         {
-          "friendshipId": 5,
-          "user1": {
-            "userId": 11,
-            "firstName": "fr",
-            "lastName": "fr",
-            "email": "f@f.com",
-            "createdAt": "2024-03-01T17:26:27.000+00:00"
-          },
-          "user2": {
-            "userId": 12,
-            "firstName": "fr",
-            "lastName": "fr",
-            "email": "f2@f.com",
-            "createdAt": "2024-03-01T17:26:39.000+00:00"
-          },
-          "createdAt": "2024-03-02T13:36:12.000+00:00",
-          "status": "accepted"
+          "id": 11,
+          "firstName": "fr",
+          "lastName": "fr",
+          "email": "f@f.com",
+          "createdAt": "2024-03-01T17:26:27.000+00:00"
         }
       ],
       "posts": [
@@ -347,7 +315,7 @@ _________________________________
 ## Create friendship endpoint 
 
 ```http
-POST /api/friendship/createFriendShip
+POST /api/friendship/createFriendShip/{id}
 ```
 
 * **Description:**
@@ -356,38 +324,119 @@ Create a friendship between two users. Endpoint used to send a friend request to
 Necessary condition to create a friendship with status pending waiting for approval is that user1 or user2 must be logged and user1 and user2 must be different users.
 In request body we pass id of user with whom we want to create a friendship. After creating a friendship, user2 will receive a friend request from user1 and user1 is waiting for approval which changes statis from PENDING to ACCEPTED.
 
-* **Request
+* **Query Parameters:**
+
+| Parameter     | Type | Description                     | Default  |
+|:--------------| :--- |:--------------------------------|:---------|
+| `id`          | `number` | id of user to create a friendship with (required) | required |
+
+* **Request Example:**
+
+    * no request Body
+
+* **Response : **user added to friends**"
+
+* **Error Messages**
+
+1. User not found-> error indicating that we try to invite user which doesnt exist or we try to do it woth invalid token of no existing user id
 
 ```json
 {
-  "id": 12
+  "apiPath": "uri=/api/friendship/createFriendShip/120",
+  "errorCode": "NOT_FOUND",
+  "errorMessage": " not found with the given input data User not found with id: 120",
+  "errorTime": "2024-03-05T12:55:24.8462408"
 }
 ```
 
-* **Response : **user added to friends**"
+2. User already in friends -> error indicating that we try to invite user which is already in friends list
+
+```json
+{
+  "apiPath": "uri=/api/friendship/createFriendShip/12",
+  "errorCode": "METHOD_NOT_ALLOWED",
+  "errorMessage": "It is not allowed to create friendship because it already exists Friendship already exists",
+  "errorTime": "2024-03-05T12:59:39.89665"
+}
+```
+3. friendShip with ourself -> error indicating that we try to invite user with our own id
+
+```json
+{
+  "apiPath": "uri=/api/friendship/createFriendShip/11",
+  "errorCode": "METHOD_NOT_ALLOWED",
+  "errorMessage": "You cannot be friend with yourself",
+  "errorTime": "2024-03-05T13:00:14.1806627"
+}
+```
+
+
 
 _________________________________
 
 ## change status of friendship to accepted (accept friend request)
 
 ```http
-PUT /api/friendship/acceptFriendShip
+PUT /api/friendship/acceptFriendShip/{id}
 ```
+
+* **Query Parameters:**
+
+| Parameter     | Type | Description                     | Default  |
+|:--------------| :--- |:--------------------------------|:---------|
+| `id`          | `number` | id of user to accept a friendship with (required) | required |
+
+
+
 
 * **Description:**
 
 Change status of friendship to accepted. Endpoint used to accept a friend request from another user. After accepting a friend request, user1 and user2 are friends and status of friendship is changed from PENDING to ACCEPTED.
 Important condition is that one of the users must be logged and user1 and user2 must be different users. We pass in body request id of user with whom we want to accept a friendship.
 
-* **Request
+* **Request Example:**
+
+  * no request Body
+
+
+* **Response : **friendship accepted**"
+
+
+* **Error Messages**
+
+1. User not found-> error indicating that we try to accept friendship with user which doesnt exist or we try to do it woth invalid token of no existing user id
 
 ```json
 {
-  "id": 12
+  "apiPath": "uri=/api/friendship/acceptFriendShip/110",
+  "errorCode": "NOT_FOUND",
+  "errorMessage": " not found with the given input data User not found with id: 110",
+  "errorTime": "2024-03-05T13:03:36.8771697"
 }
 ```
 
-* **Response : **friendship accepted**"
+2. User already in friends -> error indicating that we try to accept friendship with user which is already in friends list
+
+```json
+{
+  "apiPath": "uri=/api/friendship/acceptFriendShip/11",
+  "errorCode": "METHOD_NOT_ALLOWED",
+  "errorMessage": "You cannot accept this friend request because you are already friends",
+  "errorTime": "2024-03-05T13:04:39.7626888"
+}
+```
+3. Accepting friendship where you are not a pending user -> error indicating that we try to accept friendship as a user which is not in pending status
+For example user1 creates invitation to user2 and user1 tries to change status of relationship from pending to accepted
+
+```json
+{
+    "apiPath": "uri=/api/friendship/acceptFriendShip/12",
+    "errorCode": "METHOD_NOT_ALLOWED",
+    "errorMessage": "you are not allowed to accept this friendShip request because you are not pending user",
+    "errorTime": "2024-03-05T13:07:01.4736658"
+}
+```
+
 ________________
 
 ## delete friendship (reject friend request or delete from friends)
@@ -411,6 +460,18 @@ In request body we pass id of user with whom we want to delete a friendship. One
 ```
 
 * **Response : **friendship deleted**"
+* **Error Messages**
+
+1. User not found-> error indicating that we try to accept friendship with user which doesnt exist or we try to do it woth invalid token of no existing user id
+
+```json
+{
+  "apiPath": "uri=/api/friendship/acceptFriendShip/110",
+  "errorCode": "NOT_FOUND",
+  "errorMessage": " not found with the given input data User not found with id: 110",
+  "errorTime": "2024-03-05T13:03:36.8771697"
+}
+```
 __________________
 
 ## get relationship with given id
@@ -455,7 +516,82 @@ Get relationship with given id. Endpoint used to get relationship with another u
 }
 ```
 
+* **Error Messages**
+
+1. User not found-> error indicating that we try to accept friendship with user which doesnt exist or we try to do it woth invalid token of no existing user id
+
+```json
+{
+  "apiPath": "uri=/api/friendship/acceptFriendShip/110",
+  "errorCode": "NOT_FOUND",
+  "errorMessage": " not found with the given input data User not found with id: 110",
+  "errorTime": "2024-03-05T13:03:36.8771697"
+}
+```
+
 _______________________
+
+
+# Endpoints for Authentication
+
+## Register user
+
+```http
+POST /api/v1/auth/register
+```
+
+* **Description:**
+
+Register user. Endpoint used to register a new user. In request body we pass user data: first name, last name, email and password.In response we get a token which must be places in header in Authorization field to authenticate user.
+
+* **Request
+
+```json
+{
+  "firstName": "string",
+  "lastName": "string",
+  "email": "string",
+  "password": "string"
+}
+```
+
+* **Response:**
+
+```json
+{
+  "token": "JwtToken"
+}
+```
+
+## Login user
+
+```http
+POST /api/v1/auth/authenticate
+```
+
+* **Description:**
+
+Login user. Endpoint used to login a user. In request body we pass user email and password. In response we get a token which must be places in header in Authorization field to authenticate user.
+
+* **Request
+
+```json
+{
+  "email": "string",
+  "password": "string"
+}
+```
+
+* **Response**
+
+```json
+{
+  "token": "JwtToken"
+}
+```
+
+_______________________
+
 
 
 
