@@ -46,20 +46,32 @@ public class UserUtils {
         this.postsRepository = postsRepository;
     }
 
-    public UserDto getUserDto(int friends, int posts, User user, Pageable friendsPageable, Pageable postsPageable) {
-        Page<UserFriends> userFriends = friends > 0 ? userFriendsRepository.findAllAcceptedFriendShipsForGivenUser(user, friendsPageable) : null;
-        Page<Posts> userPosts = posts > 0 ? postsRepository.findByUser(user, postsPageable) : null;
-        UserDto userDto = UserDto.builder()
-                .id(user.getUserId())
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .email(user.getEmail())
-                .createdAt(user.getCreatedAt())
-                .friends(userFriends != null ? userFriends.getContent() : null)
-                .posts(userPosts != null ? userPosts.getContent() : null)
-                .build();
-        return userDto;
-    }
+public UserDto getUserDto(int friends, int posts, User user, Pageable friendsPageable, Pageable postsPageable) {
+    Page<UserFriends> userFriends = friends > 0 ? userFriendsRepository.findAllAcceptedFriendShipsForGivenUser(user, friendsPageable) : null;
+    Page<Posts> userPosts = posts > 0 ? postsRepository.findByUser(user, postsPageable) : null;
+    UserDto userDto = UserDto.builder()
+            .id(user.getUserId())
+            .firstName(user.getFirstName())
+            .lastName(user.getLastName())
+            .email(user.getEmail())
+            .createdAt(user.getCreatedAt())
+            //we creates list of simple userDto from userFriends relationship object list
+            .friends(userFriends != null ? userFriends
+                    .getContent()
+                    .stream()
+                    .map(uf -> uf.getUser2().equals(user) ? uf.getUser1() : uf.getUser2())
+                    .map(userFriend -> UserDto.builder()
+                            .id(userFriend.getUserId())
+                            .firstName(userFriend.getFirstName())
+                            .lastName(userFriend.getLastName())
+                            .email(userFriend.getEmail())
+                            .createdAt(userFriend.getCreatedAt())
+                            .build())
+                    .collect(Collectors.toList()) : null)
+            .posts(userPosts != null ? userPosts.getContent() : null)
+            .build();
+    return userDto;
+}
 
     public UserDto getUserDto(User user, int friends, int posts, int friendsPage, int postsPage) {
         Pageable friendsPageable =  friends > 0 ? PageRequest.of(friendsPage, friends) : null;

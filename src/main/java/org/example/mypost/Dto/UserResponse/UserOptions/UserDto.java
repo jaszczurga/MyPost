@@ -25,7 +25,7 @@ public class UserDto{
     private Timestamp createdAt;
 
     @JsonInclude (JsonInclude.Include.NON_NULL)
-    private List<UserFriends> friends;
+    private List<?> friends;
 
     @JsonInclude (JsonInclude.Include.NON_NULL)
     private List<Posts> posts;

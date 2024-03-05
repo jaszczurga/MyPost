@@ -1,5 +1,6 @@
 package org.example.mypost.dao;
 
+import org.example.mypost.Dto.UserResponse.UserOptions.UserDto;
 import org.example.mypost.entity.User;
 import org.example.mypost.entity.UserFriends;
 import org.springframework.data.domain.Page;
