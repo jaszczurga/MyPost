@@ -62,6 +62,58 @@ Get all users from database with optional list of friends and posts and ability 
 ```
 _________________________________
 
+## Get currently logged in user
+```http
+GET /api/users/currentlyLoggedInUser
+```
+
+* **Description:**
+
+Get user based by token from database with optional list of friends and posts.
+
+* **Query Parameters:**
+
+| Parameter     | Type     | Description                     | Default |
+|:--------------|:---------|:--------------------------------|:--------|
+| `id`          | `number` | id of user to get (required)    | 0       |
+| `postPage`    | `number` | number of page for posts data   | 0       |
+| `friendsPage` | `number` | number of page for friends data | 0       |
+| `friends`     | `number` |Include friends  with status accepted in response     | 0       |
+| `posts`       | `number` | Include posts in response       | 0       |
+
+* **Request Example:**
+
+  * no request Body
+* **Response Examples**
+
+```json
+{
+  "id": 12,
+  "firstName": "fr",
+  "lastName": "fr",
+  "email": "f2@f.com",
+  "createdAt": "2024-03-01T17:26:39.000+00:00",
+  "friends": [
+    {
+      "id": 11,
+      "firstName": "fr",
+      "lastName": "fr",
+      "email": "f@f.com",
+      "createdAt": "2024-03-01T17:26:27.000+00:00"
+    }
+  ],
+  "posts": [
+    {
+      "postId": 1,
+      "content": "This is a post from user 1",
+      "createdAt": "2024-03-01T16:40:33.000+00:00",
+      "likesCount": 0
+    }
+  ]
+}
+```
+
+
 ## Get user by id
 ```http
 GET /api/users/userById?id=12&friends=1
@@ -73,13 +125,13 @@ Get user by id from database with optional list of friends and posts.
 
 * **Query Parameters:**
 
-| Parameter     | Type | Description                     |Default|
-|:--------------| :--- |:--------------------------------|:------|
-| `id`          | `number` | id of user to get (required)    |0|
-| `postPage`    | `number` | number of page for posts data   |0|
-| `friendsPage` | `number` | number of page for friends data |0|
-| `friends`     | `boolean` |Include friends  with status accepted in response     |FALSE|
-| `posts`       | `boolean` | Include posts in response       |FALSE |
+| Parameter     | Type     | Description                     | Default |
+|:--------------|:---------|:--------------------------------|:--------|
+| `id`          | `number` | id of user to get (required)    | 0       |
+| `postPage`    | `number` | number of page for posts data   | 0       |
+| `friendsPage` | `number` | number of page for friends data | 0       |
+| `friends`     | `number` |Include friends  with status accepted in response     | 0       |
+| `posts`       | `number` | Include posts in response       | 0       |
 
 * **Request Example:**
 
@@ -442,7 +494,7 @@ ________________
 ## delete friendship (reject friend request or delete from friends)
 
 ```http
-DELETE /api/friendship/acceptFriendShip
+DELETE /api/friendship/deleteFriendShip/{id}
 ```
 
 * **Description:**
@@ -451,13 +503,9 @@ Delete friendship. Endpoint used to reject a friend request from another user or
 In request body we pass id of user with whom we want to delete a friendship. One user must be logged in
 
 
-* **Request
+* **Request Example:**
 
-```json
-{
-  "id": 12
-}
-```
+  * no request Body
 
 * **Response : **friendship deleted**"
 * **Error Messages**

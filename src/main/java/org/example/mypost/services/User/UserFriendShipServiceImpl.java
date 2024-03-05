@@ -71,6 +71,7 @@ public class UserFriendShipServiceImpl implements UserFriendShipService{
 
         UserFriends userFriends = userFriendsRepository.findFriendshipByUser1AndUser2(user, userToDelete);
         userFriendsRepository.delete(userFriends);
+        wsService.notifyUserAboutDeleteFriendShip(String.valueOf(userToDeleteId), "you have been deleted from friendlist by  " + userService.getUserById(authService.getLoggedInUserId()).getFirstName() + " " + userService.getUserById(authService.getLoggedInUserId()).getEmail());
         return true;
     }
 

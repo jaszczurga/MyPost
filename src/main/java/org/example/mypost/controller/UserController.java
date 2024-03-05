@@ -10,6 +10,7 @@ import org.example.mypost.Dto.UserResponse.UserListDto;
 import org.example.mypost.controller.utils.UserUtils;
 import org.example.mypost.entity.User;
 import org.example.mypost.entity.UserFriends;
+import org.example.mypost.services.Auth.AuthenticationService;
 import org.example.mypost.services.User.UserService;
 import org.example.mypost.ws.WSService;
 import org.springframework.data.domain.PageRequest;
@@ -29,7 +30,7 @@ public class UserController{
     final UserService userService;
     final UserUtils userUtils;
     final WSService wsService;
-
+    final AuthenticationService authService;
     @GetMapping("/allUsers")
     public ResponseEntity<?> getAllUsers(@RequestParam(required = false, defaultValue = "0") int friends,
                                          @RequestParam(required = false, defaultValue = "0") int posts,
@@ -47,6 +48,14 @@ public class UserController{
                                          @RequestParam(required = false, defaultValue = "0") int postsPage) {
 
         return ResponseEntity.ok(userUtils.getUserDto(userService.getUserById(id), friends, posts, friendsPage, postsPage));
+    }
+
+    @GetMapping("/currentlyLoggedInUser")
+    public ResponseEntity<?> getCurrentlyLoggedInUser(@RequestParam(required = false, defaultValue = "0") int friends,
+                                                      @RequestParam(required = false, defaultValue = "0") int posts,
+                                                      @RequestParam(required = false, defaultValue = "0") int friendsPage,
+                                                      @RequestParam(required = false, defaultValue = "0") int postsPage) {
+        return ResponseEntity.ok(userUtils.getUserDto(userService.getUserById(authService.getLoggedInUserId()), friends, posts, friendsPage, postsPage));
     }
 
     @GetMapping("/userByFirstName")

@@ -38,4 +38,12 @@ public class WSService {
         // notificationService.sendPrivateNotification(id);
         messagingTemplate.convertAndSendToUser(id, "/topic/friend-request-pending",response);
     }
+
+    public void notifyUserAboutDeleteFriendShip(String id, final String message) {
+        ResponseMessage response = new ResponseMessage(message,String.valueOf(authenticationService.getLoggedInUserId()));
+
+        // notificationService.sendPrivateNotification(id);
+        messagingTemplate.convertAndSendToUser(id, "/topic/friend-request-delete",response);
+    }
+
 }
